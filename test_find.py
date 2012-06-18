@@ -120,12 +120,21 @@ class FindTestCase(unittest.TestCase):
         
         self.assertEqual(actual_output.getvalue(), theoretical_output.getvalue())
     
-    def test_type_works_with_name_specified(self):
+    def test_type_works_with_regex_specified(self):
         global tmp_dir
         actual_output = find.do_search(tmp_dir, 'a', None, 'f')
         
-        theorectical_output = io.StringIO()
+        theoretical_output = io.StringIO()
         print(os.path.join(tmp_dir, 'abc123.txt'), file=theoretical_output)
+        
+        self.assertEqual(actual_output.getvalue(), theoretical_output.getvalue())
+    
+    def test_type_works_with_name_specified(self):
+        global tmp_dir
+        actual_output = find.do_search(tmp_dir, None, 'a', 'd')
+        
+        theoretical_output = io.StringIO()
+        print(os.path.join(tmp_dir, 'a'), file=theoretical_output)
         
         self.assertEqual(actual_output.getvalue(), theoretical_output.getvalue())
     
