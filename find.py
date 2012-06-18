@@ -4,6 +4,7 @@ import argparse
 import re
 import fnmatch
 import io
+import sys
 
 
 parser = argparse.ArgumentParser()
@@ -13,10 +14,14 @@ parser.add_argument("-regex", help="use regular expression matching")
 parser.add_argument("-name", help="name of file")
 parser.add_argument("-type", help="type: be it a file or dir", choices='df')
 
-args = parser.parse_args()
-
-global results_found
 results_found = False
+
+def initialize_args(argslist = sys.argv[1:]):
+    global args
+    global parser
+    args = parser.parse_args(argslist)
+    
+    return args
 
 def do_search(provided_path, regex_pattern, name_to_match, type_ForD):
     outputFromSearch = io.StringIO()
@@ -72,6 +77,7 @@ def search_recursively(provided_path, regex_pattern, name_to_match, type_ForD):
 
 
 #execute the search
+initArgs = initialize_args()
 results = do_search(args.path, args.regex, args.name, args.type)
 print(results.getvalue())
 results.close()

@@ -138,6 +138,12 @@ class FindTestCase(unittest.TestCase):
         
         self.assertEqual(actual_output.getvalue(), theoretical_output.getvalue())
     
+    def test_unknown_args_throws_error(self):
+        try:
+            actual_result = find.initialize_args(['-magic'])
+            assert False
+        except:
+            pass
     
     def tearDown(self):
         global tmp_dir_previously_existed
